@@ -1,7 +1,9 @@
 #!/bin/bash
+# https://www.worldometers.info/coronavirus/
+# https://www.cnn.com/interactive/2020/health/coronavirus-us-maps-and-cases/
 if [[ ! -f "tagsoup-1.2.1.jar" ]]
 then
-    wget  http://vrici.lojban.org/~cowan/XML/tagsoup/tagsoup-1.2.1.jar
+    curl  http://vrici.lojban.org/~cowan/XML/tagsoup/tagsoup-1.2.1.jar
 fi
 
 UPDATE="0"
@@ -17,13 +19,13 @@ array=(`cat "$1"`) # Create array
 ONE=one
 TWO=two
 
-wget ${array[0]} -O $ONE.html
-wget "${array[1]}" -O $TWO.html
+curl ${array[0]} -o $ONE.html
+curl "${array[1]}" -o $TWO.html
 
 java -jar tagsoup-1.2.1.jar --files $ONE.html
 java -jar tagsoup-1.2.1.jar --files $TWO.html
 
-python scrape.py $ONE.xhtml $TWO.xhtml
+python3 scrape.py $ONE.xhtml $TWO.xhtml
 
 rm one.html
 rm one.xhtml

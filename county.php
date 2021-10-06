@@ -5,16 +5,33 @@
             $password = 'root';
             $db = 'covid_us';
             $host = 'localhost';
-            //$port = 8889;
+            $port = 8889;
+            //$port = 5500;
            
 
-            $conn = new mysqli($host, $user, $password, $db);
+            $conn = mysqli_init();
+            $success = mysqli_real_connect(
+                $conn,
+                $host,
+                $user,
+                $password,
+                $db,
+                $port
+             );
+            
+            if(!$conn){
+                echo mysqli_connect_errno() . ":" . mysqli_connect_error();
+                exit;
+            }
+
+          /*  $conn = new mysqli($host, $user, $password, $db);
 
             if (mysqli_connect_error()) {
                 echo "error connect";
                 die("Database connection failed: " . mysqli_connect_error());
                
             }
+            */
 ?>
 <!DOCTYPE html>
 <html lang="en">
